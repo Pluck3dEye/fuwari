@@ -36,6 +36,18 @@ const togglePanel = () => {
 	panel?.classList.toggle("float-panel-closed");
 };
 
+// Render the panel at <body>. A backdrop-filter on an ancestor (the navbar's
+// .card-base) becomes a "backdrop root" that suppresses the panel's own
+// backdrop-filter; portalling it out lets the panel actually blur the page.
+function portal(node: HTMLElement) {
+	document.body.appendChild(node);
+	return {
+		destroy() {
+			node.remove();
+		},
+	};
+}
+
 const setPanelVisibility = (show: boolean, isDesktop: boolean): void => {
 	const panel = document.getElementById("search-panel");
 	if (!panel || !isDesktop) return;
@@ -157,8 +169,7 @@ $: if (initialized && keywordMobile) {
 </button>
 
 <!-- search panel -->
-<div id="search-panel" class="float-panel float-panel-closed search-panel absolute md:w-[30rem]
-top-20 left-4 md:left-[unset] right-4 shadow-2xl rounded-2xl p-2">
+<div use:portal id="search-panel" class="float-panel float-panel-closed search-panel shadow-2xl rounded-2xl p-2">
 
     <!-- search bar inside panel for phone/tablet -->
     <div id="search-bar-inside" class="flex relative lg:hidden transition-all items-center h-11 rounded-xl
@@ -191,8 +202,23 @@ top-20 left-4 md:left-[unset] right-4 shadow-2xl rounded-2xl p-2">
   input:focus {
     outline: 0;
   }
+  /* Portalled to <body> (see use:portal) so it escapes the navbar's backdrop
+     root and can blur the page. Pinned just under the sticky navbar; on md+ it
+     sits 30rem wide, right-aligned to the centred content column. */
   .search-panel {
+    position: fixed;
+    top: 5rem;
+    left: 1rem;
+    right: 1rem;
+    z-index: 50;
     max-height: calc(100vh - 100px);
     overflow-y: auto;
+  }
+  @media (min-width: 768px) {
+    .search-panel {
+      left: auto;
+      width: 30rem;
+      right: max(1rem, calc((100vw - var(--page-width, 75rem)) / 2 + 1rem));
+    }
   }
 </style>

@@ -70,9 +70,10 @@ define({
   --link-active: oklch(0.90 0.05 var(--hue)) oklch(0.35 0.07 var(--hue))
 
   --float-panel-bg: white(0.7) unquote('oklch(0.2 0.024 var(--hue) / 0.72)')
-  /* Search dropdown: same tone as --card-bg (navbar/post cards) but far more opaque,
-     so result text stays legible over banners/content without looking off-colour */
-  --search-panel-bg: white(0.92) unquote('oklch(0.24 0.022 var(--hue) / 0.92)')
+  /* Search dropdown: same tone as --card-bg (navbar/post cards). Now that the
+     panel is portalled out of the navbar its backdrop-blur works, so it can be
+     translucent (frosted) while staying legible over the blurred page. */
+  --search-panel-bg: white(0.6) unquote('oklch(0.24 0.022 var(--hue) / 0.6)')
 
   --scrollbar-bg-light: black(0.4)
   --scrollbar-bg-hover-light: black(0.5)
