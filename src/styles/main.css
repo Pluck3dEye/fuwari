@@ -175,6 +175,13 @@
     box-shadow: 0 16px 48px -16px var(--glass-shadow);
 }
 
+/* Search dropdown keeps the strong blur but uses a more opaque fill so result
+   text doesn't read through to the banner/content behind it. Plain (unlayered)
+   rule so it overrides .float-panel's layered bg-[var(--float-panel-bg)]. */
+.search-panel {
+    background-color: var(--search-panel-bg);
+}
+
 /* ---------------------------------------------------------------------------
    Atmosphere
    A fixed, hue-driven gradient mesh sits behind everything so the heavy
