@@ -150,3 +150,50 @@
     }
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Glassmorphism
+   Kept as plain rules (outside @layer components) so the component layer stays
+   pure for cross-file @apply. Just heavy backdrop-blur + a soft drop shadow for
+   depth — no border, no rim highlight, so surfaces read as clean frosted glass
+   instead of an outlined box.
+   --------------------------------------------------------------------------- */
+.card-base {
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.6);
+    backdrop-filter: blur(var(--glass-blur)) saturate(1.6);
+    box-shadow: 0 10px 34px -14px var(--glass-shadow);
+}
+
+.btn-card {
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.6);
+    backdrop-filter: blur(var(--glass-blur)) saturate(1.6);
+}
+
+.float-panel {
+    -webkit-backdrop-filter: blur(var(--glass-blur-strong)) saturate(1.8);
+    backdrop-filter: blur(var(--glass-blur-strong)) saturate(1.8);
+    box-shadow: 0 16px 48px -16px var(--glass-shadow);
+}
+
+/* ---------------------------------------------------------------------------
+   Atmosphere
+   A fixed, hue-driven gradient mesh sits behind everything so the heavy
+   backdrop-filter has soft, colourful depth to refract instead of flat colour.
+   --------------------------------------------------------------------------- */
+html {
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-image:
+        radial-gradient(38rem 38rem at 12% 10%, oklch(0.88 0.13 var(--hue) / 0.55), transparent 60%),
+        radial-gradient(42rem 42rem at 88% 6%, oklch(0.87 0.12 calc(var(--hue) + 55) / 0.5), transparent 62%),
+        radial-gradient(46rem 46rem at 78% 78%, oklch(0.89 0.11 calc(var(--hue) - 45) / 0.5), transparent 64%),
+        radial-gradient(40rem 40rem at 20% 92%, oklch(0.9 0.12 calc(var(--hue) + 28) / 0.45), transparent 60%);
+}
+
+html.dark {
+    background-image:
+        radial-gradient(38rem 38rem at 12% 10%, oklch(0.46 0.12 var(--hue) / 0.55), transparent 60%),
+        radial-gradient(42rem 42rem at 88% 6%, oklch(0.42 0.12 calc(var(--hue) + 55) / 0.48), transparent 62%),
+        radial-gradient(46rem 46rem at 78% 80%, oklch(0.4 0.11 calc(var(--hue) - 45) / 0.48), transparent 64%),
+        radial-gradient(40rem 40rem at 20% 92%, oklch(0.44 0.12 calc(var(--hue) + 28) / 0.42), transparent 60%);
+}
