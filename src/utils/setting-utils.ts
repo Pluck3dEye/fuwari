@@ -1,10 +1,5 @@
-import {
-	AUTO_MODE,
-	DARK_MODE,
-	DEFAULT_THEME,
-	LIGHT_MODE,
-} from "@constants/constants.ts";
-import { expressiveCodeConfig } from "@/config";
+import { AUTO_MODE, DARK_MODE, LIGHT_MODE } from "@constants/constants.ts";
+import { expressiveCodeConfig, siteConfig } from "@/config";
 import type { LIGHT_DARK_MODE } from "@/types/config";
 
 export function getDefaultHue(): number {
@@ -57,5 +52,13 @@ export function setTheme(theme: LIGHT_DARK_MODE): void {
 }
 
 export function getStoredTheme(): LIGHT_DARK_MODE {
-	return (localStorage.getItem("theme") as LIGHT_DARK_MODE) || DEFAULT_THEME;
+	// When the switch is hidden, the configured default is enforced and a
+	// previously stored preference is ignored (the visitor can't change it anyway).
+	if (siteConfig.themeMode.hidden) {
+		return siteConfig.themeMode.default;
+	}
+	return (
+		(localStorage.getItem("theme") as LIGHT_DARK_MODE) ||
+		siteConfig.themeMode.default
+	);
 }

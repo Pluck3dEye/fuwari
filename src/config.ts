@@ -15,6 +15,10 @@ export const siteConfig: SiteConfig = {
 		hue: 250, // Default hue for the theme color, from 0 to 360. e.g. red: 0, teal: 200, cyan: 250, pink: 345
 		fixed: false, // Hide the theme color picker for visitors
 	},
+	themeMode: {
+		default: "auto", // Default light/dark mode for first-time visitors: 'light', 'dark' or 'auto' (follow system)
+		hidden: false, // Hide the light/dark mode switch button for visitors
+	},
 	banner: {
 		enable: true,
 		src: "assets/images/111024784_p0.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'

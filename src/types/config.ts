@@ -20,6 +20,10 @@ export type SiteConfig = {
 		hue: number;
 		fixed: boolean;
 	};
+	themeMode: {
+		default: LIGHT_DARK_MODE; // Default light/dark mode for first-time visitors
+		hidden: boolean; // Hide the light/dark mode switch button
+	};
 	banner: {
 		enable: boolean;
 		src: string;

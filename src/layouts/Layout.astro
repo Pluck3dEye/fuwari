@@ -11,7 +11,6 @@ import {
 	BANNER_HEIGHT_EXTEND,
 	BANNER_HEIGHT_HOME,
 	DARK_MODE,
-	DEFAULT_THEME,
 	LIGHT_MODE,
 	PAGE_WIDTH,
 } from "../constants/constants";
@@ -110,9 +109,10 @@ const bannerOffset =
 		))}
 
 		<!-- Set the theme before the page is rendered to avoid a flash -->
-		<script is:inline define:vars={{DEFAULT_THEME, LIGHT_MODE, DARK_MODE, AUTO_MODE, BANNER_HEIGHT_EXTEND, PAGE_WIDTH, configHue}}>
-			// Load the theme from local storage
-			const theme = localStorage.getItem('theme') || DEFAULT_THEME;
+		<script is:inline define:vars={{DEFAULT_THEME: siteConfig.themeMode.default, THEME_HIDDEN: siteConfig.themeMode.hidden, LIGHT_MODE, DARK_MODE, AUTO_MODE, BANNER_HEIGHT_EXTEND, PAGE_WIDTH, configHue}}>
+			// Load the theme: when the switch is hidden, the configured default is enforced
+			// (ignoring any value a visitor stored earlier, since they can no longer change it)
+			const theme = THEME_HIDDEN ? DEFAULT_THEME : (localStorage.getItem('theme') || DEFAULT_THEME);
 			switch (theme) {
 				case LIGHT_MODE:
 					document.documentElement.classList.remove('dark');
